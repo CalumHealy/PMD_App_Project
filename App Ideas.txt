@@ -1,0 +1,6 @@
+Plane app
+Have two teams: Boeing and Airbus, maybe also Embraer
+Show "players" (planes) on each team with stats (Airbus is fat, Boeing looses vital components mid-match)
+List of different planes on each team
+Compare stats like card game
+Maybe different classes of cards, like club (manufacturer) and player (aircraft). Boeing has Aura (will kill you if you go saying shit), Airbus has traditional reputation. Boeing has the 747, but A380. 
