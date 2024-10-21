@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -78,8 +79,8 @@ import androidx.navigation.compose.rememberNavController
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object Settings : Screen("Settings")
-    object Notifications : Screen("notifications")
+    object Favourites : Screen("favourites")
+    object YourTeam : Screen("yourteam")
 }
 
 data class NavItem(
@@ -97,8 +98,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navItemList = listOf(
                     NavItem(label = "Home", icon = Icons.Default.Home, screen = Screen.Home),
-                    NavItem(label = "Settings", icon = Icons.Default.Settings, screen = Screen.Settings),
-                    NavItem(label = "Notifications", icon = Icons.Default.Notifications, screen = Screen.Notifications)
+                    NavItem(label = "Favourites", icon = Icons.Default.Favorite, screen = Screen.Favourites),
+                    NavItem(label = "Your Team", icon = Icons.Default.Notifications, screen = Screen.YourTeam)
                 )
                 var selectedIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -140,8 +141,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(Screen.Home.route) { HomeScreen() }
-                        composable(Screen.Settings.route) { SettingsScreen() }
-                        composable(Screen.Notifications.route) { NotificationsScreen() }
+                        composable(Screen.Favourites.route) { FavouritesScreen() }
+                        composable(Screen.YourTeam.route) { YourTeamScreen() }
                     }
                 }
             }
@@ -161,16 +162,16 @@ class MainActivity : ComponentActivity() {
 //    }
 //}
 
-@Composable
-fun HomeScreen( modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize().background(Color.Black),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text = "Home Screen",
-            fontSize = 36.sp,
-            color = Color.Red)
-    }
-}
+//@Composable
+//fun HomeScreen( modifier: Modifier = Modifier) {
+//    Box(modifier.fillMaxSize().background(Color.Black),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Text(text = "Home Screen",
+//            fontSize = 36.sp,
+//            color = Color.Red)
+//    }
+//}
 
 //@Composable
 //fun SearchScreen() {
@@ -184,16 +185,16 @@ fun HomeScreen( modifier: Modifier = Modifier) {
 //    }
 //}
 
-@Composable
-fun SettingsScreen( modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize().background(Color.White),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text="Settings Screen",
-        fontSize = 36.sp,
-        color = Color.Red)
-    }
-}
+//@Composable
+//fun SettingsScreen( modifier: Modifier = Modifier) {
+//    Box(modifier.fillMaxSize().background(Color.White),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Text(text="Settings Screen",
+//        fontSize = 36.sp,
+//        color = Color.Red)
+//    }
+//}
 
 //@Composable
 //fun ProfileScreen() {
@@ -207,16 +208,16 @@ fun SettingsScreen( modifier: Modifier = Modifier) {
 //    }
 //}
 
-@Composable
-fun NotificationsScreen( modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize().background(Color.Green),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text="Notifications Screen",
-            fontSize = 36.sp,
-            color = Color.Red)
-    }
-}
+//@Composable
+//fun NotificationsScreen( modifier: Modifier = Modifier) {
+//    Box(modifier.fillMaxSize().background(Color.Green),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Text(text="Notifications Screen",
+//            fontSize = 36.sp,
+//            color = Color.Red)
+//    }
+//}
 
 @Composable
 fun TitleText(title: String) {
