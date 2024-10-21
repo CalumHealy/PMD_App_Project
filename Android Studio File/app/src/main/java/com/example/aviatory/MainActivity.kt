@@ -81,6 +81,9 @@ sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Favourites : Screen("favourites")
     object YourTeam : Screen("yourteam")
+    object BoeingScreen : Screen("boeingScreen")
+    object AirbusScreen : Screen("airbusScreen")
+    object MitsubishiScreen : Screen("mitsubishiScreen")
 }
 
 data class NavItem(
@@ -140,9 +143,10 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screen.Home.route,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable(Screen.Home.route) { HomeScreen() }
+                        composable(Screen.Home.route) { HomeScreen(navController) }
                         composable(Screen.Favourites.route) { FavouritesScreen() }
                         composable(Screen.YourTeam.route) { YourTeamScreen() }
+                        composable(Screen.BoeingScreen.route) { BoeingScreen() }
                     }
                 }
             }
