@@ -146,7 +146,9 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Home.route) { HomeScreen(navController) }
                         composable(Screen.Favourites.route) { FavouritesScreen() }
                         composable(Screen.YourTeam.route) { YourTeamScreen() }
-                        composable(Screen.BoeingScreen.route) { BoeingScreen() }
+                        composable(Screen.BoeingScreen.route) { BoeingScreen(navController) }
+                        composable(Screen.AirbusScreen.route) { AirbusScreen(/*navController*/) }
+                        composable(Screen.MitsubishiScreen.route) { MitsubishiScreen(/*navController*/) }
                     }
                 }
             }

@@ -28,12 +28,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
-data class ListItem(val id: String, val imageRes: Int, val description: String)
+data class HomeScreenListItem(val id: String, val imageRes: Int, val description: String)
 
-val itemList = listOf(
-    ListItem("boeingScreen", R.drawable.image1, "Boeing"),
-    ListItem("airbusScreen", R.drawable.image2, "Airbus"),
-    ListItem("mitsubishiScreen", R.drawable.image3, "Mitsubishi")
+val homeScreenItemList = listOf(
+    HomeScreenListItem("boeingScreen", R.drawable.image1, "Boeing"),
+    HomeScreenListItem("airbusScreen", R.drawable.image2, "Airbus"),
+    HomeScreenListItem("mitsubishiScreen", R.drawable.image3, "Mitsubishi")
 )
 
 @Composable
@@ -73,7 +73,7 @@ fun AirlinesList(onItemClick: (id:String) -> Unit) {
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(itemList) { item ->
+        items(homeScreenItemList) { item ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
