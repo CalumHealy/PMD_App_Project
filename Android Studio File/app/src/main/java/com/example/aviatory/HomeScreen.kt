@@ -33,7 +33,12 @@ data class HomeScreenListItem(val id: String, val imageRes: Int, val description
 val homeScreenItemList = listOf(
     HomeScreenListItem("boeingScreen", R.drawable.image1, "Boeing"),
     HomeScreenListItem("airbusScreen", R.drawable.image2, "Airbus"),
-    HomeScreenListItem("mitsubishiScreen", R.drawable.image3, "Mitsubishi")
+    HomeScreenListItem("mitsubishiScreen", R.drawable.image3, "Mitsubishi"),
+    HomeScreenListItem("Boeing 737", R.drawable.image1, "Boeing 737: Boeing's most popular aircraft. "),
+    HomeScreenListItem("Airbus A320", R.drawable.image2, "Airbus A320: Airbus's most popular aircraft. "),
+    HomeScreenListItem("Boeing 747", R.drawable.image3, "Boeing 747: Boeing's King of the air. This beauty has 1.5 floors. "),
+    HomeScreenListItem("Airbus A380", R.drawable.image4, "Airbus A380: Airbus's Queen of the air. This double decker is a big beast. "),
+    HomeScreenListItem("Boeing 777", R.drawable.image1, "Boeing 777: Boeing's most elegant and beautiful aircraft (in my opinion). ")
 )
 
 @Composable

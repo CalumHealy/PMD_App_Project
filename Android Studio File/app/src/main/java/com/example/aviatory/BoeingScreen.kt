@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.compose.ui.window.Popup
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 data class BoeingScreenListItem(val id: String, val imageRes: Int, val description: String)
 
@@ -41,8 +45,10 @@ val boeingScreenItemList = listOf(
 )
 
 @Composable
-fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier, FavouriteListViewModel: FavouriteListViewModel = viewModel()) {
     var selectedItemId by remember { mutableStateOf<String>("B737-700") }
+    var showPopup by remember { mutableStateOf(false) }
+    var lastClickedId by remember { mutableStateOf(String) }
 
     Box(modifier.fillMaxSize().background(Color.White),
         contentAlignment = Alignment.Center
@@ -54,8 +60,9 @@ fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier) {
     {
         Column {
             BoeingPlanesList(onItemClick = {itemId ->
-                selectedItemId = itemId
-                navController.navigate(selectedItemId!!)
+                // lastClickedId = itemId
+                // showPopup(itemId)
+                print(selectedItemId)
             })
 
             //selectedItemId?.let {
@@ -71,6 +78,54 @@ fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier) {
 //            AirlinesList(onItemClick = {itemId ->
 //                selectedItemId = itemId
 //            })
+        }
+    }
+    if (showPopup) {
+        Popup(alignment = Alignment.Center) {
+            Box(
+                modifier = Modifier
+                    .size(300.dp)
+                    .background(Color.White)
+                    .padding(16.dp)
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "Boeing 737-700: The soldier of the skies.")
+                    Text(text = "The 737 is the standard aircraft for many airlines, used often for short-distance flights.")
+                    Text(text = "As of October 2024, Boeing have produced 11,112 737's.")
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "Close",
+                        modifier = Modifier
+                            .clickable { showPopup = false }
+                            .background(Color.Gray)
+                            .padding(8.dp),
+                        color = Color.White
+                    )
+                    if (FavouriteListViewModel.isInFavourites(selectedItemId)) {
+                        Text(
+                            text = "Remove from favourites",
+                            modifier = Modifier
+                                .clickable { FavouriteListViewModel.removeFavourite(selectedItemId)}
+                                .background(Color.Gray)
+                                .padding(8.dp),
+                            color = Color.White
+                        )
+                    } else {
+                        Text(
+                            text = "Add to favourites",
+                            modifier = Modifier
+                                .clickable { FavouriteListViewModel.addFavourite(selectedItemId)}
+                                .background(Color.Gray)
+                                .padding(8.dp),
+                            color = Color.White
+                        )
+                    }
+
+                }
+            }
         }
     }
 }
@@ -118,4 +173,9 @@ fun BoeingPlanesList(onItemClick: (id:String) -> Unit) {
             }
         }
     }
+}
+
+@Composable
+fun showPopup(itemId: String) {
+
 }
