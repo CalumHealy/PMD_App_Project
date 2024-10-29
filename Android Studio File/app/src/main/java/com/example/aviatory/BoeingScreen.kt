@@ -39,13 +39,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 data class BoeingScreenListItem(val id: String, val imageRes: Int, val description: String)
 
 val boeingScreenItemList = listOf(
-    BoeingScreenListItem("B737-700", R.drawable.image1, "737-700"),
-    BoeingScreenListItem("B777", R.drawable.image4, "777"),
-    BoeingScreenListItem("B747", R.drawable.image5, "747")
+    BoeingScreenListItem("B737-700", R.drawable.b737img, "737-700"),
+    BoeingScreenListItem("B777X", R.drawable.b777ximg, "777X"),
+    BoeingScreenListItem("B747", R.drawable.b747img, "747")
 )
 
 @Composable
-fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier, FavouriteListViewModel: FavouriteListViewModel = viewModel()) {
+fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier, FavouritesViewModel: FavouritesViewModel = viewModel()) {
     var selectedItemId by remember { mutableStateOf<String>("B737-700") }
     var showPopup by remember { mutableStateOf(false) }
     var lastClickedId by remember { mutableStateOf(String) }
@@ -104,11 +104,11 @@ fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier, Fa
                             .padding(8.dp),
                         color = Color.White
                     )
-                    if (FavouriteListViewModel.isInFavourites(selectedItemId)) {
+                    if (FavouritesViewModel.isInFavourites(selectedItemId)) {
                         Text(
                             text = "Remove from favourites",
                             modifier = Modifier
-                                .clickable { FavouriteListViewModel.removeFavourite(selectedItemId)}
+                                .clickable { FavouritesViewModel.removeFavourite(selectedItemId)}
                                 .background(Color.Gray)
                                 .padding(8.dp),
                             color = Color.White
@@ -117,7 +117,7 @@ fun BoeingScreen(navController: NavController, modifier: Modifier = Modifier, Fa
                         Text(
                             text = "Add to favourites",
                             modifier = Modifier
-                                .clickable { FavouriteListViewModel.addFavourite(selectedItemId)}
+                                .clickable { FavouritesViewModel.addFavourite(selectedItemId)}
                                 .background(Color.Gray)
                                 .padding(8.dp),
                             color = Color.White

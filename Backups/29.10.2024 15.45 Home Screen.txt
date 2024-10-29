@@ -38,16 +38,15 @@ import androidx.compose.material.icons.outlined.Favorite
 data class HomeScreenListItem(val id: String, val imageRes: Int, val description: String)
 
 val homeScreenItemList = listOf(
+    // HomeScreenListItem("boeingScreen", R.drawable.image1, "Boeing"),
+    // HomeScreenListItem("airbusScreen", R.drawable.image2, "Airbus"),
+    // HomeScreenListItem("mitsubishiScreen", R.drawable.image3, "Mitsubishi"),
     HomeScreenListItem("Boeing 737", R.drawable.b737img, "Boeing 737: Boeing's most popular aircraft. "),
     HomeScreenListItem("Airbus A320", R.drawable.a320img, "Airbus A320: Airbus's most popular aircraft. "),
     HomeScreenListItem("Boeing 747", R.drawable.b747img, "Boeing 747: Boeing's King of the air. This beauty has 1.5 floors. "),
     HomeScreenListItem("Airbus A380", R.drawable.a380img, "Airbus A380: Airbus's Queen of the air. This double decker is a big beast. "),
     HomeScreenListItem("Boeing 777X", R.drawable.b777ximg, "Boeing 777X: Boeing's most elegant and beautiful aircraft (in my opinion). "),
-    HomeScreenListItem("Airbus A350", R.drawable.a350img, "Airbus A350: Airbus's widebody daddy. "),
-    HomeScreenListItem("CRJ1000", R.drawable.crj1000img, "CRJ1000: This slender beauty may look like it's about to crack in half, but it's fair sturdy. "),
-    HomeScreenListItem("Global 5500", R.drawable.bg5500img, "Global 5500: This private jet from Bombardier is small but stunning, and can carry all your friends. "),
-    HomeScreenListItem("Concorde", R.drawable.concordeimg, "Concorde: One of the most famous jets of all time, the Concorde blasted through the sky faster than sound!"),
-    HomeScreenListItem("Airbus Beluga", R.drawable.belugaimg, "Airbus Beluga: The whale of the skies. ")
+    HomeScreenListItem("Airbus A350", R.drawable.a350img, "Airbus A350: Airbus's widebody daddy. ")
 )
 
 @Composable
@@ -93,49 +92,50 @@ fun AirlinesList(
                     .fillMaxWidth()
                     .background(Color(red = 100, green = 150, blue = 255))
                     .clickable { onItemClick(item.id) }
-                    .padding(2.dp)
+                    .padding(8.dp)
             ) {
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(id = item.imageRes),
-                            contentDescription = item.description,
-                            // contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(140.dp)
-                                .padding(end = 16.dp)
-                                .aspectRatio(1.5f),
-                            contentScale = ContentScale.Crop,
-                        )
-                        Text(
-                            text = item.description,
-                            color = Color.Black,
-                            style = TextStyle(
-                                fontFamily = FontFamily.Serif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
-                            )
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
                     Icon(
                         imageVector = if (favouritesViewModel.isFavourite(item.id)) Icons.Filled.Favorite else Icons.Outlined.Favorite,
                         contentDescription = "Favourite Icon",
                         modifier = Modifier
-                            .size(36.dp)
-                            .align(Alignment.CenterHorizontally)
+                            .size(24.dp)
                             .clickable { favouritesViewModel.toggleFavourite(item.id) },
-                        tint = if (favouritesViewModel.isFavourite(item.id)) Color.Red else Color(red = 80, green = 120, blue = 200)
+                        tint = if (favouritesViewModel.isFavourite(item.id)) Color.Red else Color.Gray
                     )
+                    Image(
+                        painter = painterResource(id = item.imageRes),
+                        contentDescription = item.description,
+                        // contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(140.dp)
+                            .padding(end = 16.dp)
+                            .aspectRatio(1.5f),
+                        contentScale = ContentScale.Crop,
+                    )
+                    Text (
+                        text = item.description,
+                        color = Color.Black,
+                        style = TextStyle(
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                        )
+                    )
+//                    Icon(
+//                        imageVector = if (favouritesViewModel.isFavourite(item.id)) Icons.Filled.Favorite else Icons.Outlined.Favorite,
+//                        contentDescription = "Favourite Icon",
+//                        modifier = Modifier
+//                            .size(24.dp)
+//                            .clickable { favouritesViewModel.toggleFavourite(item.id) },
+//                        tint = if (favouritesViewModel.isFavourite(item.id)) Color.Red else Color.Gray
+//                    )
                 }
             }
         }
