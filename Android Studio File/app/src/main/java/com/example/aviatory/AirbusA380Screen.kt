@@ -2,21 +2,111 @@ package com.example.aviatory
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 
 @Composable
-fun AirbusA380Screen( modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize().background(Color.Green),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text="Airbus A380 Screen",
-            fontSize = 36.sp,
-            color = Color.Red)
+fun AirbusA380Screen( onBackClick: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(red = 175, green = 175, blue = 255))
+            .padding(16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = { onBackClick() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "Airbus A380",
+                style = TextStyle(
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(red = 50, green = 0, blue = 150),
+                    fontFamily = FontFamily.Serif
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1.6f))
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(250.dp)
+                .padding(10.dp)
+                .border(width = 4.dp, color = Color(red = 0, green = 0, blue = 0)),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.a380img),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+            )
+        }
+
+        Column(
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            val bulletPoints = listOf(
+                "Introduced: October 2005",
+                "Total Made: 251",
+                "Capacity: 525 - 853",
+                "Length: 73m",
+                "Wingspan: 80m",
+                "Distance: 8,000nmi",
+                "Largest Fleet: Emirates (123)"
+            )
+            bulletPoints.forEach { point ->
+                Row(
+                    modifier = Modifier.padding(vertical = 4.dp)
+                ) {Text(
+                    text = "\u2022",
+                    style = TextStyle(fontSize = 16.sp),
+                    color = Color(red = 50, green = 0, blue = 150),
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                    Text(
+                        text = point,
+                        style = TextStyle(fontSize = 16.sp, color = Color.Black),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        }
     }
 }

@@ -17,50 +17,81 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 
 @Composable
-fun Boeing737Screen( modifier: Modifier = Modifier) {
+fun Boeing737Screen( onBackClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color(red = 175, green = 175, blue = 255))
             .padding(16.dp)
     ) {
-        Text(
-            text = "Boeing 737",
-            style = TextStyle(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
-                fontFamily = FontFamily.Serif
-            ),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = { onBackClick() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "Boeing 737",
+                style = TextStyle(
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(red = 50, green = 0, blue = 150),
+                    fontFamily = FontFamily.Serif
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1.6f))
+        }
+        Box(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(bottom = 16.dp)
-        )
-        Image(
-            painter = painterResource(id = R.drawable.b737img),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(200.dp)
-                .align(Alignment.CenterHorizontally)
-                .padding(bottom = 16.dp)
-                .background(Color.Gray, shape = CircleShape)
-        )
+                .fillMaxWidth()
+                .size(250.dp)
+                .padding(10.dp)
+                .border(width = 4.dp, color = Color(red = 0, green = 0, blue = 0)),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.b737img),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+            )
+        }
 
         Column(
             modifier = Modifier.padding(top = 16.dp)
         ) {
             val bulletPoints = listOf(
-                "Hello",
-                "World"
+                "Introduced: April 1967, 737-100",
+                "Total Made: 17,000",
+                "Capacity: 138 - 204 seats (737 MAX)",
+                "Length: 43.8m",
+                "Wingspan: 35.9m",
+                "Distance: 3,300nmi - 3,850nmi (737 MAX)",
+                "Largest Fleet: Southwest Airlines (723)"
             )
             bulletPoints.forEach { point ->
                 Row(
@@ -68,7 +99,8 @@ fun Boeing737Screen( modifier: Modifier = Modifier) {
                 ) {Text(
                     text = "\u2022",
                     style = TextStyle(fontSize = 16.sp),
-                    color = MaterialTheme.colorScheme.primary,
+                    // color = MaterialTheme.colorScheme.primary,
+                    color = Color(red = 50, green = 0, blue = 150),
                     modifier = Modifier.padding(end = 8.dp)
                     )
                     Text(

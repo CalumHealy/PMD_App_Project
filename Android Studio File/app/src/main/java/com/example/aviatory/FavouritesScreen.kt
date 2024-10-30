@@ -30,8 +30,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.CircleShape
 
 @Composable
 fun FavouritesScreen(
@@ -43,16 +47,49 @@ fun FavouritesScreen(
 
     Box(
         modifier = modifier
-            .fillMaxSize().
-            background(Color(red = 175, green = 175, blue = 255)),
+            .fillMaxSize()
+            .background(Color(red = 175, green = 175, blue = 255)),
         contentAlignment = Alignment.Center
     ) {
         if (favouriteItems.isEmpty()) {
-            Text(
-                text = "no favourites yet!",
-                fontSize = 18.sp,
-                color = Color.Gray
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "No favourites yet!",
+                        color = Color.Black,
+                        style = TextStyle(
+                            fontWeight = Bold,
+                            fontSize = 22.sp
+                        ),
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .size(300.dp)
+                            .padding(end = 16.dp)
+                            .aspectRatio(1.5f)
+                            .border(width = 4.dp, color = Color(red = 0, green = 0, blue = 0))
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.nofavouritesimg),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.matchParentSize()
+                        )
+                    }
+                }
+            }
         } else {
             LazyColumn(
                 modifier = Modifier

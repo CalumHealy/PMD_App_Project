@@ -2,7 +2,6 @@ package com.example.aviatory
 
 // Default imports
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,76 +16,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.aviatory.ui.theme.AviatoryTheme
 
 // My imports
-import androidx.compose.foundation.background
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Phone
 
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-
-
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.Home
-//import androidx.compose.material.icons.filled.Search
-//import androidx.compose.material.icons.filled.Person
-//import androidx.compose.material.icons.outlined.Home
-//import androidx.compose.material.icons.outlined.Search
-//import androidx.compose.material.icons.outlined.Person
-//import androidx.compose.material3.Badge
-//import androidx.compose.material3.BadgedBox
-//import androidx.compose.material3.ExperimentalMaterial3Api
-//import androidx.compose.material3.NavigationBar
-//import androidx.compose.material3.Icon
-//import androidx.compose.material3.NavigationBarItem
-//import androidx.compose.runtime.saveable.rememberSaveable
-//import androidx.compose.ui.graphics.vector.ImageVector
-//import androidx.navigation.NavController
-//import androidx.navigation.NavHost
-
-//sealed class BottomNavItem(val route: String, val icon: ImageVector, val label: String) {
-//    object Home : BottomNavItem("home", Icons.Default.Home, "Home")
-//    object Search : BottomNavItem("search", Icons.Default.Search, "Search")
-//    object Profile : BottomNavItem("profile", Icons.Default.Person, "Profile")
-//}
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Favourites : Screen("favourites")
-    object YourTeam : Screen("yourteam")
-    object BoeingScreen : Screen("boeingScreen")
-    object AirbusScreen : Screen("airbusScreen")
-    object MitsubishiScreen : Screen("mitsubishiScreen")
+    object HistoryScreen : Screen("history")
+    object LiveATC : Screen("liveATC")
     object Boeing737Screen : Screen("Boeing 737")
     object AirbusA320Screen : Screen("Airbus A320")
     object Boeing747Screen : Screen("Boeing 747")
@@ -119,7 +73,8 @@ class MainActivity : ComponentActivity() {
                 val navItemList = listOf(
                     NavItem(label = "Home", icon = Icons.Default.Home, screen = Screen.Home),
                     NavItem(label = "Favourites", icon = Icons.Default.Favorite, screen = Screen.Favourites),
-                    NavItem(label = "Your Team", icon = Icons.Default.Notifications, screen = Screen.YourTeam)
+                    NavItem(label = "History", icon = Icons.Default.Info, screen = Screen.HistoryScreen),
+                    NavItem(label = "LiveATC", icon = Icons.Default.Phone, screen = Screen.LiveATC)
                 )
                 var selectedIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -167,106 +122,23 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(itemId)
                             }
                         ) }
-                        composable(Screen.YourTeam.route) { YourTeamScreen() }
-                        composable(Screen.BoeingScreen.route) { BoeingScreen(navController) }
-                        composable(Screen.AirbusScreen.route) { AirbusScreen(/*navController*/) }
-                        composable(Screen.MitsubishiScreen.route) { MitsubishiScreen(/*navController*/) }
-                        composable(Screen.Boeing737Screen.route) { Boeing737Screen() }
-                        composable(Screen.AirbusA320Screen.route) { AirbusA320Screen() }
-                        composable(Screen.Boeing747Screen.route) { Boeing747Screen() }
-                        composable(Screen.AirbusA380Screen.route) { AirbusA380Screen() }
-                        composable(Screen.Boeing777XScreen.route) { Boeing777XScreen() }
-                        composable(Screen.AirbusA350Screen.route) { AirbusA350Screen() }
-                        composable(Screen.CRJ1000Screen.route) { CRJ1000Screen() }
-                        composable(Screen.Global5500Screen.route) { Global5500Screen() }
-                        composable(Screen.ConcordeScreen.route) { ConcordeScreen() }
-                        composable(Screen.AirbusBelugaScreen.route) { AirbusBelugaScreen() }
+                        composable(Screen.LiveATC.route) { LiveATC() }
+                        composable(Screen.HistoryScreen.route) { HistoryScreen() }
+                        composable(Screen.Boeing737Screen.route) { Boeing737Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.AirbusA320Screen.route) { AirbusA320Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.Boeing747Screen.route) { Boeing747Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.AirbusA380Screen.route) { AirbusA380Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.Boeing777XScreen.route) { Boeing777XScreen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.AirbusA350Screen.route) { AirbusA350Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.CRJ1000Screen.route) { CRJ1000Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.Global5500Screen.route) { Global5500Screen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.ConcordeScreen.route) { ConcordeScreen(onBackClick = { navController.popBackStack() }) }
+                        composable(Screen.AirbusBelugaScreen.route) { AirbusBelugaScreen(onBackClick = { navController.popBackStack() }) }
                     }
                 }
             }
         }
     }
-}
-
-//@Composable
-//fun HomeScreen() {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color(0xFFE3F2FD)), // Light Blue Background
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Text(text = "Home Screen", fontSize = 24.sp, color = Color.Black)
-//    }
-//}
-
-//@Composable
-//fun HomeScreen( modifier: Modifier = Modifier) {
-//    Box(modifier.fillMaxSize().background(Color.Black),
-//        contentAlignment = Alignment.Center
-//    ){
-//        Text(text = "Home Screen",
-//            fontSize = 36.sp,
-//            color = Color.Red)
-//    }
-//}
-
-//@Composable
-//fun SearchScreen() {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color(0xFFBBDEFB)), // Lighter Blue Background
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Text(text = "Search Screen", fontSize = 24.sp, color = Color.Black)
-//    }
-//}
-
-//@Composable
-//fun SettingsScreen( modifier: Modifier = Modifier) {
-//    Box(modifier.fillMaxSize().background(Color.White),
-//        contentAlignment = Alignment.Center
-//    ){
-//        Text(text="Settings Screen",
-//        fontSize = 36.sp,
-//        color = Color.Red)
-//    }
-//}
-
-//@Composable
-//fun ProfileScreen() {
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color(0xFF90CAF9)), // Different Blue Background
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Text(text = "Profile Screen", fontSize = 24.sp, color = Color.Black)
-//    }
-//}
-
-//@Composable
-//fun NotificationsScreen( modifier: Modifier = Modifier) {
-//    Box(modifier.fillMaxSize().background(Color.Green),
-//        contentAlignment = Alignment.Center
-//    ){
-//        Text(text="Notifications Screen",
-//            fontSize = 36.sp,
-//            color = Color.Red)
-//    }
-//}
-
-@Composable
-fun TitleText(title: String) {
-    Text(
-        text = title,
-        style = TextStyle(
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(red = 90, green = 130, blue = 255)
-        )
-    )
 }
 
 @Composable
@@ -284,131 +156,3 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
-
-// Generic menu function
-@Composable
-fun OptionsDropDownMenu(
-    expanded: Boolean,
-    onDismiss:() -> Unit,
-    onOptionSelected: (String) -> Unit,
-    options: List<String> // accepts a list of options for the menu as parameter
-) {
-    val context = LocalContext.current
-    DropdownMenu(
-        expanded = expanded,
-        onDismissRequest = {onDismiss()}
-    ) {
-        // iterate over the option list and create a dropdown menu item for each option
-        options.forEach { option ->
-            DropdownMenuItem(
-                text = { Text(text = option)},
-                onClick = {
-                    onOptionSelected(option)
-                    // Optional action
-                    Toast.makeText(context, option, Toast.LENGTH_SHORT).show()
-                    onDismiss()
-                }
-            )
-        }
-    }
-}
-
-//@Composable
-//fun MyBottomNavigationBar(navController: NavController.Companion) {
-//    BottomNavigation {
-//        val navBackStackEntry by navController.currentBackStackEntryAsState()
-//        val currentRoute = navBackStackEntry?.destination?.route
-//
-//        val items = listOf(BottomNavItem.Home, BottomNavItem.Search, BottomNavItem.Profile)
-//
-//        items.forEach { item ->
-//            BottomNavigationItem(
-//                selected = currentRoute == item.route,
-//                onClick = {
-//                    navController.navigate(item.route) {
-//                        popUpTo(navController.graph.startDestinationId)
-//                        launchSingleTop = true
-//                    }
-//                },
-//                icon = { Icon(item.icon, contentDescription = null) },
-//                label = { Text(item.label) }
-//            )
-//        }
-//    }
-//}
-
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun MyApp() {
-//    var expanded by remember {
-//        mutableStateOf(false)
-//    }
-//    val context = LocalContext.current
-//    Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                title = {
-//                    Text(text = "My App")
-//                },
-//                actions={
-//                    Button(onClick = {expanded = true}) {
-//                        Text(text="options")
-//
-//                       // Icon(imageVector = Icons.Default.Menu, contextDescription = "Menu")
-//                    }
-//                    OptionsDropDownMenu(
-//                        expanded = expanded,
-//                        onDismiss = {expanded = false},
-//                        options = listOf("Option 1", "Option 2", "Option 3"),
-//                        onOptionSelected = {selectedOption ->
-//                            Toast.makeText(context, selectedOption, Toast.LENGTH_SHORT).show()
-//                        }
-//                    )
-//                }
-//            )
-//        },
-//        content = {innerPadding ->
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(innerPadding),
-//                contentAlignment = Alignment.Center){
-//
-//                Column() {
-//                    var popupExpanded by remember { mutableStateOf(false) }
-//                    Button(onClick = {popupExpanded = true}){
-//                        Text(text = "Show Popup Menu")
-//                    }
-//                    OptionsDropDownMenu(
-//                        expanded = popupExpanded,
-//                        onDismiss = {popupExpanded = false},
-//                        options = listOf("Pop up Option 1", "Pop up Option 2"),
-//                        onOptionSelected = {selectedOption ->
-//                            Toast.makeText(context, selectedOption, Toast.LENGTH_SHORT).show()
-//                        }
-//                    )
-//                    // Context menu on a text
-//                    var contextExpanded by remember { mutableStateOf(false)}
-//                    Text(
-//                        text = "Context Menu",
-//                        modifier = Modifier.pointerInput(Unit) {
-//                            detectTapGestures(
-//                                onLongPress = {
-//                                    contextExpanded = true
-//                                }
-//                            )
-//                        }
-//                    )
-//                    OptionsDropDownMenu(
-//                        expanded = contextExpanded,
-//                        onDismiss = {contextExpanded = false},
-//                        options = listOf("Context Option 1", "Context Option 2"),
-//                        onOptionSelected = {selectedOption ->
-//                            Toast.makeText(context, selectedOption, Toast.LENGTH_SHORT).show()
-//                        }
-//                    )
-//                }
-//            }
-//        }
-//    )
-//}

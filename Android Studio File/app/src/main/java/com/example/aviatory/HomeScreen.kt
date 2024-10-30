@@ -17,16 +17,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.ui.text.style.TextAlign
 
 data class HomeScreenListItem(val id: String, val imageRes: Int, val description: String)
 
@@ -43,7 +36,7 @@ val homeScreenItemList = listOf(
     HomeScreenListItem("Boeing 747", R.drawable.b747img, "Boeing 747: Boeing's King of the air. This beauty has 1.5 floors. "),
     HomeScreenListItem("Airbus A380", R.drawable.a380img, "Airbus A380: Airbus's Queen of the air. This double decker is a big beast. "),
     HomeScreenListItem("Boeing 777X", R.drawable.b777ximg, "Boeing 777X: Boeing's most elegant and beautiful aircraft (in my opinion). "),
-    HomeScreenListItem("Airbus A350", R.drawable.a350img, "Airbus A350: Airbus's widebody daddy. "),
+    HomeScreenListItem("Airbus A350", R.drawable.a350img, "Airbus A350: Airbus's widebody brute. "),
     HomeScreenListItem("CRJ1000", R.drawable.crj1000img, "CRJ1000: This slender beauty may look like it's about to crack in half, but it's fair sturdy. "),
     HomeScreenListItem("Global 5500", R.drawable.bg5500img, "Global 5500: This private jet from Bombardier is small but stunning, and can carry all your friends. "),
     HomeScreenListItem("Concorde", R.drawable.concordeimg, "Concorde: One of the most famous jets of all time, the Concorde blasted through the sky faster than sound!"),
@@ -56,16 +49,46 @@ fun HomeScreen(
     favouritesViewModel: FavouritesViewModel,
     modifier: Modifier = Modifier
 ) {
-    // var selectedItemId by remember { mutableStateOf<String>("Boeing") }
-    // val favourites = remember { mutableStateListOf<String>() }
-    // val FavouritesViewModel: FavouriteListViewModel = viewModel()
-
     Box(
         modifier = modifier
-            .fillMaxSize().background(Color(red = 175, green = 175, blue = 255)),
+            .fillMaxSize().
+            background(Color(red = 175, green = 175, blue = 255)),
         contentAlignment = Alignment.Center
     ) {
-        Column {
+        Column (
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp, bottom = 8.dp)
+            ) {
+                Text(
+                    text = "AVIATORY",
+                    style = TextStyle(
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Gray,
+                        fontFamily = FontFamily.Serif,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier
+                        .offset(1.dp, 1.dp)
+                )
+
+                Text (
+                    text = "AVIATORY",
+                    style = TextStyle(
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(red = 50, green = 0, blue = 150),
+                        fontFamily = FontFamily.Serif,
+                        textAlign = TextAlign.Center
+                    )
+                )
+            }
+
             AirlinesList(
                 onItemClick = { itemId ->
                     navController.navigate(itemId)
