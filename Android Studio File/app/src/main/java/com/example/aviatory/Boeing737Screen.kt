@@ -88,7 +88,7 @@ fun Boeing737Screen( onBackClick: () -> Unit, modifier: Modifier = Modifier) {
                 "Introduced: April 1967, 737-100",
                 "Total Made: 17,000",
                 "Capacity: 138 - 204 seats (737 MAX)",
-                "Length: 43.8m",
+                "Length: 35.56m",
                 "Wingspan: 35.9m",
                 "Distance: 3,300nmi - 3,850nmi (737 MAX)",
                 "Largest Fleet: Southwest Airlines (723)"
